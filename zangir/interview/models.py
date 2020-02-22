@@ -17,7 +17,9 @@ class Question(ZangirBaseModel):
         (MULTIPLE_ANSWER, 'multiple_answer')
     ]
 
-    question = models.TextField(max_length=200)
+    question = models.TextField(max_length=300)
     qtype = models.TextField(choices=QUESTION_TYPES)
 
 
+    def __str__(self):
+        return self.question[:20]
