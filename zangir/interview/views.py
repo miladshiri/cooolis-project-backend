@@ -23,6 +23,19 @@ class QuestionnaireView(mixins.ListModelMixin,
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+
+class QuestionnaireDetailView(mixins.RetrieveModelMixin,
+                    generics.GenericAPIView):
+    queryset = Questionnaire.objects.all()
+    serializer_class = QuestionnaireSerializer
+    lookup_field = "slug"
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    
+    
+
     
     
 

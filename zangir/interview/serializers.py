@@ -23,7 +23,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Questionnaire
-        fields = ['title', 'description', 'max_number', 'questions']
+        fields = ['title', 'slug', 'description', 'max_number', 'questions']
 
 
 

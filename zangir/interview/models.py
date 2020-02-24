@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.text import slugify
 
 class ZangirBaseModel(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
@@ -64,6 +64,7 @@ class Option(ZangirBaseModel):
 
 class Questionnaire(ZangirBaseModel):
     title = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, blank=True)
     description = models.TextField()
     target_areas = models.ManyToManyField(Area)
     max_number = models.IntegerField()
@@ -72,6 +73,15 @@ class Questionnaire(ZangirBaseModel):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if getattr(self, 'slug') is '':
+            self.slug = self.title    
+        self.slug = slugify(self.slug)
+        super(Questionnaire, self).save(*args, **kwargs)
+
+
     def questions(self):
         return Question.objects.filter(areas__in=self.target_areas.all())[:self.max_number]
 
+    def create_slug_from_title(self):
+        return slugify(self.title)
