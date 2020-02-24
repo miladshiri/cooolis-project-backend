@@ -18,6 +18,13 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ['id', 'text', 'question_type', 'available_options']
 
 
+class QuestionnaireListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Questionnaire
+        fields = ['title', 'slug', 'description', 'max_number', 'get_absolute_url']
+
+
 class QuestionnaireSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True)
 

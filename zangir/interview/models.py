@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 class ZangirBaseModel(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
@@ -85,3 +86,6 @@ class Questionnaire(ZangirBaseModel):
 
     def create_slug_from_title(self):
         return slugify(self.title)
+    
+    def get_absolute_url(self):
+         return reverse('interview:questionnaire_detail', kwargs={'slug': self.slug})

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import mixins, generics
 
-from .serializers import QuestionSerializer, QuestionnaireSerializer
+from .serializers import QuestionSerializer, QuestionnaireSerializer, QuestionnaireListSerializer
 from .models import Question, Questionnaire
 
 
@@ -18,7 +18,7 @@ class QuestionView(mixins.ListModelMixin,
 class QuestionnaireView(mixins.ListModelMixin,
                     generics.GenericAPIView):
     queryset = Questionnaire.objects.all()
-    serializer_class = QuestionnaireSerializer
+    serializer_class = QuestionnaireListSerializer
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
