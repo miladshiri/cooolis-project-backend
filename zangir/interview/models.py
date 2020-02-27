@@ -18,6 +18,16 @@ class Area(ZangirBaseModel):
         return self.text[:20]
 
 
+class Category(ZangirBaseModel):
+    text = models.CharField(max_length=100)
+
+
+    def __str__(self):
+        return self.text[:20]
+
+    def all_questionnaires(self):
+        return self.questionnaire_set.all()
+
 
 class Question(ZangirBaseModel):
     UNKNOWN_TYPE = 'UT'
@@ -65,11 +75,11 @@ class Option(ZangirBaseModel):
 
 class Questionnaire(ZangirBaseModel):
     title = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, allow_unicode=True)
     description = models.TextField()
     target_areas = models.ManyToManyField(Area)
     max_number = models.IntegerField()
-
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title
@@ -77,7 +87,7 @@ class Questionnaire(ZangirBaseModel):
     def save(self, *args, **kwargs):
         if getattr(self, 'slug') is '':
             self.slug = self.title    
-        self.slug = slugify(self.slug)
+        self.slug = slugify(self.slug, allow_unicode=True)
         super(Questionnaire, self).save(*args, **kwargs)
 
 
@@ -88,4 +98,4 @@ class Questionnaire(ZangirBaseModel):
         return slugify(self.title)
     
     def get_absolute_url(self):
-         return reverse('interview:questionnaire_detail', kwargs={'slug': self.slug})
+         return reverse('interview:questionnaire_detail', kwargs={'pk': self.id})

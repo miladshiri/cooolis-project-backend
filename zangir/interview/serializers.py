@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Question, Option, Questionnaire
+from .models import Question, Option, Questionnaire, Category
 
 
 class OptionSerializer(serializers.ModelSerializer):
@@ -23,6 +23,14 @@ class QuestionnaireListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Questionnaire
         fields = ['title', 'slug', 'description', 'max_number', 'get_absolute_url']
+
+
+class CategoryListSerializer(serializers.ModelSerializer):
+    all_questionnaires = QuestionnaireListSerializer(many=True)
+    
+    class Meta:
+        model = Category
+        fields = ['text', 'all_questionnaires']
 
 
 class QuestionnaireSerializer(serializers.ModelSerializer):
