@@ -22,12 +22,12 @@ class QuestionnaireListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Questionnaire
-        fields = ['title', 'slug', 'description', 'max_number', 'get_absolute_url']
+        fields = ['id', 'title', 'slug', 'description', 'max_number', 'get_absolute_url']
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
     all_questionnaires = QuestionnaireListSerializer(many=True)
-    
+
     class Meta:
         model = Category
         fields = ['text', 'all_questionnaires']

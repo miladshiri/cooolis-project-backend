@@ -5,6 +5,7 @@ from rest_framework import mixins, generics
 from .serializers import QuestionSerializer, QuestionnaireSerializer, \
 QuestionnaireListSerializer, CategoryListSerializer
 from .models import Question, Questionnaire, Category
+from rest_framework.permissions import IsAuthenticated
 
 
 class QuestionView(mixins.ListModelMixin,
@@ -25,6 +26,7 @@ class QuestionnaireView(mixins.ListModelMixin,
         return self.list(request, *args, **kwargs)
 
 class CategoryView(mixins.ListModelMixin, generics.GenericAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Category.objects.all()
     serializer_class = CategoryListSerializer
 
