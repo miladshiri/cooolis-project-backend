@@ -92,7 +92,7 @@ class Questionnaire(ZangirBaseModel):
 
 
     def questions(self):
-        return Question.objects.filter(areas__in=self.target_areas.all())[:self.max_number]
+        return Question.objects.filter(areas__in=self.target_areas.all()).distinct()[:self.max_number]
 
     def create_slug_from_title(self):
         return slugify(self.title)

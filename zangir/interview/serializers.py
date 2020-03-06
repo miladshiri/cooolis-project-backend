@@ -41,5 +41,11 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         fields = ['title', 'slug', 'description', 'max_number', 'questions']
 
 
+class SelectedOptionSerializer(serializers.Serializer):
+    id = serializers.IntegerField(required=False)
+    text = serializers.CharField(required=False)
 
-        
+
+class ResponseSerializer(serializers.Serializer):
+        selected_options = SelectedOptionSerializer(many=True)
+        question_id = serializers.IntegerField()
