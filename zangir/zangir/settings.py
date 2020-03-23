@@ -25,7 +25,7 @@ SECRET_KEY = 'ot!%_z-e=$%h$4(z@$az25lvbx8(l@-2)i!s_!9v!f*+=u2^jh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '51.75.84.230', 'cooolis.ir']
 
 
 # Application definition
@@ -147,6 +147,7 @@ AUTH_USER_MODEL = 'user.ZangirUser'
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 
 CORS_ORIGIN_ALLOW_ALL = True
